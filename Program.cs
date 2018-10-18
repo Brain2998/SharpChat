@@ -8,9 +8,8 @@ namespace SharpChat
         public static void Main(string[] args)
         {
             Application.Init();
-            MainWindow win = new MainWindow();
+			MainWindow win = new MainWindow();
             win.Show();
-//testcommit123
 			Application.Run();
         }
     }
