@@ -1,0 +1,19 @@
+# OSX specific
+.DS_Store
+*.lock
+*.swp
+*.lock
+
+# Build folders
+[Bb]in/
+[Oo]bj/
+
+# User specific
+*.userprefs
+*.usertasks
+
+# Mono project files
+*~
+*.pidb
+*.resources
+test-results/
