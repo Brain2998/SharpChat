@@ -69,6 +69,7 @@
     <Compile Include="Server.cs" />
     <Compile Include="ChatForm.cs" />
     <Compile Include="gtk-gui\MainWindow.cs" />
+    <Compile Include="Connection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
