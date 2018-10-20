@@ -15,7 +15,6 @@ namespace SharpChat
 		private static Hashtable Users = new Hashtable();
 		private static MainWindow ChatForm;
 		private Thread thrListener;
-		private List<Connection> Connections;
 
 		public static Hashtable UserTable
 		{
@@ -46,37 +45,30 @@ namespace SharpChat
 		private void KeepListening()
 		{
 			while (true)
-            {
-                tcpClient = tcpListener.AcceptTcpClient();
-				if (tcpClient.Connected)
-				{
-					Connection connection = new Connection(tcpClient);
-					//Connections.Add(connection);
-				}
-            }
+			{
+				tcpClient = tcpListener.AcceptTcpClient();
+				Connection connection = new Connection(tcpClient);
+			}
 		}
 
 		public void StopListening()
 		{
-			tcpListener.Stop();
-			thrListener.Abort();
-			/*foreach (TcpClient client in Users.Values)
+			foreach (Connection client in Users.Values)
 			{
-				client.Close();
-			}*/
-			for (int i = 0; i < Connections.Count; ++i)
-			{
-				Connections[i].CloseConnection("4");
+				client.CloseConnection("0|201");
 			}
+			thrListener.Abort();
+			tcpListener.Stop();
+			Users.Clear();
 		}
 
-		public static void AddUser(TcpClient User, string Username)
+		public static void AddUser(Connection User, string Username)
 		{
 			Users.Add(Username, User);
 			ChatForm.Log = Username + " join\n";
 		}
 
-		public static void RemoveUser(TcpClient user, string Username)
+		public static void RemoveUser(string Username)
 		{
 			Users.Remove(Username);
 			ChatForm.Log = Username + " left\n";

@@ -12,7 +12,7 @@ namespace SharpChat
 		private Thread clientThread;
 		private StreamReader clientReader;
 		private StreamWriter clientWriter;
-		private string clientResponse;
+		private string clientMessage;
 		private string clientName;
 
 		public Connection(TcpClient Client)
@@ -24,15 +24,20 @@ namespace SharpChat
 
         public void CloseConnection(string reason)
 		{
-			if (reason != "3")
-			{
-				clientWriter.WriteLine(reason);
-				clientWriter.Flush();
-			}
+			clientWriter.WriteLine(reason);
+			clientWriter.Flush();
 			tcpClient.Close();
 			clientThread.Abort();
 			clientReader.Close();
 			clientWriter.Close();
+		}
+
+		public void CloseConnection()
+		{
+			tcpClient.Close();
+            clientThread.Abort();
+            clientReader.Close();
+            clientWriter.Close();
 		}
 
         private void AcceptClient()
@@ -44,34 +49,38 @@ namespace SharpChat
 			{
 				if (Server.UserTable.Contains(clientName))
 				{
-					CloseConnection("2");
+					CloseConnection("0|103");
 				}
 				else
 				{
-					clientWriter.WriteLine("0");
+					clientWriter.WriteLine("0|100");
 					clientWriter.Flush();
-					Server.AddUser(tcpClient, clientName);
+					Server.AddUser(this, clientName);
+					RecieveMessages();               
 				}
 			}
 			else
 			{
-				CloseConnection("1");
+				CloseConnection("0|102");
 			}
-			try
-			{
-				while ((clientResponse=clientReader.ReadLine())!="")
-				{
-					if (clientResponse=="3")
-					{
-						Server.RemoveUser(tcpClient, clientName);
-						CloseConnection("3");
-					}
-				}
-			}
-			catch
-			{
-			//	CloseConnection("1");
-			}
-		}      
+		}
+
+		private void RecieveMessages()
+		{
+			//while (tcpClient.GetStream().DataAvailable)
+			while ((clientMessage=clientReader.ReadLine())!="")
+            //while (true)
+            {
+				//clientMessage = clientReader.ReadLine();
+                if (clientMessage.StartsWith("0|"))
+                {
+                    if (clientMessage == "0|202")
+                    {
+                        Server.RemoveUser(clientName);
+                        CloseConnection();
+                    }
+                }
+            }
+		}
     }
 }

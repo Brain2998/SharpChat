@@ -6,7 +6,7 @@
   <import>
     <widget-library name="../bin/Debug/SharpChat.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="369 300">
+  <widget class="Gtk.Window" id="MainWindow" design-size="376 445">
     <property name="MemberName" />
     <property name="Title" translatable="yes">SharpChat</property>
     <property name="WindowPosition">CenterOnParent</property>
