@@ -1,6 +1,5 @@
 ﻿using System;
 using Gtk;
-using System.Threading;
 
 namespace SharpChat
 {
@@ -16,10 +15,6 @@ namespace SharpChat
 				win.Show();
 				Application.Run();
 			}
-			catch (ThreadAbortException)
-            {
-
-            }
 			catch (Exception err)
             {
 				win.Log = "Main: " + err.Message + "\n";

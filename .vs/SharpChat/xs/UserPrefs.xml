@@ -1,5 +1,9 @@
 ﻿<Properties StartupConfiguration="{AF35FBBC-5A5A-4410-9C4C-8535ED424367}|Default">
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="SharpChat/MainWindow.cs">
+    <Files>
+      <File FileName="SharpChat/MainWindow.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

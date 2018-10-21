@@ -3,7 +3,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections;
 using System.Threading;
-using System.Collections.Generic;
 
 namespace SharpChat
 {
@@ -15,6 +14,7 @@ namespace SharpChat
 		private static Hashtable Users = new Hashtable();
 		public static MainWindow ChatForm;
 		private Thread thrListener;
+		public bool isRunning = false;
 
 		public static Hashtable UserTable
 		{
@@ -40,13 +40,10 @@ namespace SharpChat
 			{
 				tcpListener = new TcpListener(ipAddress, 1986);
 				tcpListener.Start();
+				isRunning = true;
 				thrListener = new Thread(KeepListening);
 				thrListener.Start();
 			}
-			catch (ThreadAbortException)
-            {
-
-            }
 			catch (Exception e)
             {
 				ChatForm.Log = "StartListening: " + e.Message +"\n";
@@ -57,20 +54,21 @@ namespace SharpChat
 		{
 			try
 			{
-				while (true)
+				while (isRunning)
                 {
+					if (!tcpListener.Pending())
+					{
+						Thread.Sleep(200);
+						continue;
+					}
 					tcpClient = tcpListener.AcceptTcpClient();
 					Connection connection = new Connection(tcpClient);
 					connection.AcceptClient();
 				}
 			}
-			catch (ThreadAbortException)
-			{
-				
-			}
 			catch (Exception e)
 			{
-				ChatForm.Log= "KeepListening: " + e.Message+ "\n";
+				ChatForm.Log= "KeepListening: " + e.Message+" "+e.TargetSite +"\n";
 			}
 		}
 
@@ -82,14 +80,11 @@ namespace SharpChat
 				{
 					client.CloseConnection("0|201");
 				}
-				thrListener.Abort();
-				//tcpListener.Stop();
-				//Users.Clear();
-			}
-			catch (ThreadAbortException)
-			{
+				isRunning = false;
 				tcpListener.Stop();
-                Users.Clear();
+				thrListener.Join();
+
+				Users.Clear();
 			}
 			catch (Exception e)
 			{

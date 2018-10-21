@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.IO;
@@ -14,55 +13,12 @@ namespace SharpChat
 		private StreamWriter clientWriter;
 		private string clientMessage;
 		private string clientName;
+		private bool isConnected = false;
 
 		public Connection(TcpClient Client)
         {
 			tcpClient = Client;
-			//clientThread = new Thread(AcceptClient);
-			//clientThread.Start();
         }
-
-        public void CloseConnection(string reason)
-		{
-			try
-			{
-				clientWriter.WriteLine(reason);
-				clientWriter.Flush();
-				tcpClient.Close();
-				clientThread.Abort();
-				//clientReader.Close();
-				//clientWriter.Close();
-			}
-			catch (ThreadAbortException)
-			{
-				clientReader.Close();
-                clientWriter.Close();
-			}
-			catch (Exception e)
-            {
-				Server.ChatForm.Log = "CloseConnectionReason: " + e.Message+ "\n";
-            }
-		}
-
-		public void CloseConnection()
-		{
-			try
-			{
-				tcpClient.Close();
-				clientThread.Abort();
-				//clientReader.Close();
-				//clientWriter.Close();
-			}
-			catch (ThreadAbortException)
-			{
-				clientReader.Close();
-                clientWriter.Close();
-			}
-			catch (Exception e)
-            {
-				Server.ChatForm.Log = "CloseConnection: " + e.Message+ "\n";
-            }
-		}
 
 		public void AcceptClient()
 		{
@@ -82,6 +38,7 @@ namespace SharpChat
 						clientWriter.WriteLine("0|100");
 						clientWriter.Flush();
 						Server.AddUser(this, clientName);
+						isConnected = true;
 						clientThread = new Thread(RecieveMessages);
                         clientThread.Start();
 					}
@@ -91,25 +48,28 @@ namespace SharpChat
 					CloseConnection("0|102");
 				}
 			}
-			catch (ThreadAbortException)
-            {
-
-            }
 			catch (Exception e)
 			{
 				Server.ChatForm.Log = "AcceptClient: " + e.Message+ "\n";
-				CloseConnection("0|101");
+				if (isConnected)
+				{
+					CloseConnection("0|101");
+				}
 			}
 		}
 
 		private void RecieveMessages()
 		{
 			try
-			{
-				//while (tcpClient.GetStream().DataAvailable)
-				while ((clientMessage = clientReader.ReadLine()) != "")
+			{            
+				while (isConnected)
 				{
-					//clientMessage = clientReader.ReadLine();
+					if (!tcpClient.GetStream().DataAvailable)
+					{
+						Thread.Sleep(200);
+						continue;
+					}
+					clientMessage = clientReader.ReadLine();
 					if (clientMessage.StartsWith("0|"))
 					{
 						Server.RemoveUser(clientName);
@@ -117,15 +77,48 @@ namespace SharpChat
 					}
 				}
 			}
-			catch (ThreadAbortException)
-			{
-				
-			}
 			catch (Exception e)
 			{
 				Server.ChatForm.Log = "RecieveMessage: " + e.Message+ "\n";
-				CloseConnection("0|200");
+				if (isConnected)
+				{
+					CloseConnection("0|200");
+				}
 			}
 		}
+
+		public void CloseConnection(string reason)
+        {
+            try
+            {
+                clientWriter.WriteLine(reason);
+                clientWriter.Flush();
+                tcpClient.Close();
+                isConnected = false;
+                clientThread.Join();
+                clientReader.Close();
+                clientWriter.Close();
+            }
+            catch (Exception e)
+            {
+                Server.ChatForm.Log = "CloseConnectionReason: " + e.Message + "\n";
+            }
+        }
+
+        public void CloseConnection()
+        {
+            try
+            {
+                tcpClient.Close();
+                isConnected = false;
+                clientThread.Join();
+                clientReader.Close();
+                clientWriter.Close();
+            }
+            catch (Exception e)
+            {
+                Server.ChatForm.Log = "CloseConnection: " + e.Message + "\n";
+            }
+        }
     }
 }
