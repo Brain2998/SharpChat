@@ -18,69 +18,114 @@ namespace SharpChat
 		public Connection(TcpClient Client)
         {
 			tcpClient = Client;
-			clientThread = new Thread(AcceptClient);
-			clientThread.Start();
+			//clientThread = new Thread(AcceptClient);
+			//clientThread.Start();
         }
 
         public void CloseConnection(string reason)
 		{
-			clientWriter.WriteLine(reason);
-			clientWriter.Flush();
-			tcpClient.Close();
-			clientThread.Abort();
-			clientReader.Close();
-			clientWriter.Close();
+			try
+			{
+				clientWriter.WriteLine(reason);
+				clientWriter.Flush();
+				tcpClient.Close();
+				clientThread.Abort();
+				//clientReader.Close();
+				//clientWriter.Close();
+			}
+			catch (ThreadAbortException)
+			{
+				clientReader.Close();
+                clientWriter.Close();
+			}
+			catch (Exception e)
+            {
+				Server.ChatForm.Log = "CloseConnectionReason: " + e.Message+ "\n";
+            }
 		}
 
 		public void CloseConnection()
 		{
-			tcpClient.Close();
-            clientThread.Abort();
-            clientReader.Close();
-            clientWriter.Close();
+			try
+			{
+				tcpClient.Close();
+				clientThread.Abort();
+				//clientReader.Close();
+				//clientWriter.Close();
+			}
+			catch (ThreadAbortException)
+			{
+				clientReader.Close();
+                clientWriter.Close();
+			}
+			catch (Exception e)
+            {
+				Server.ChatForm.Log = "CloseConnection: " + e.Message+ "\n";
+            }
 		}
 
-        private void AcceptClient()
+		public void AcceptClient()
 		{
 			clientReader = new StreamReader(tcpClient.GetStream());
 			clientWriter = new StreamWriter(tcpClient.GetStream());
-			clientName = clientReader.ReadLine();
-			if (clientName != "")
+			try
 			{
-				if (Server.UserTable.Contains(clientName))
+				clientName = clientReader.ReadLine();
+				if (clientName != "")
 				{
-					CloseConnection("0|103");
+					if (Server.UserTable.Contains(clientName))
+					{
+						CloseConnection("0|103");
+					}
+					else
+					{
+						clientWriter.WriteLine("0|100");
+						clientWriter.Flush();
+						Server.AddUser(this, clientName);
+						clientThread = new Thread(RecieveMessages);
+                        clientThread.Start();
+					}
 				}
 				else
 				{
-					clientWriter.WriteLine("0|100");
-					clientWriter.Flush();
-					Server.AddUser(this, clientName);
-					RecieveMessages();               
+					CloseConnection("0|102");
 				}
 			}
-			else
+			catch (ThreadAbortException)
+            {
+
+            }
+			catch (Exception e)
 			{
-				CloseConnection("0|102");
+				Server.ChatForm.Log = "AcceptClient: " + e.Message+ "\n";
+				CloseConnection("0|101");
 			}
 		}
 
 		private void RecieveMessages()
 		{
-			//while (tcpClient.GetStream().DataAvailable)
-			while ((clientMessage=clientReader.ReadLine())!="")
-            //while (true)
-            {
-				//clientMessage = clientReader.ReadLine();
-                if (clientMessage.StartsWith("0|"))
-                {
-                    if (clientMessage == "0|202")
-                    {
-                        Server.RemoveUser(clientName);
-                        CloseConnection();
-                    }
-                }
-            }
+			try
+			{
+				//while (tcpClient.GetStream().DataAvailable)
+				while ((clientMessage = clientReader.ReadLine()) != "")
+				{
+					//clientMessage = clientReader.ReadLine();
+					if (clientMessage.StartsWith("0|"))
+					{
+						Server.RemoveUser(clientName);
+						CloseConnection();
+					}
+				}
+			}
+			catch (ThreadAbortException)
+			{
+				
+			}
+			catch (Exception e)
+			{
+				Server.ChatForm.Log = "RecieveMessage: " + e.Message+ "\n";
+				CloseConnection("0|200");
+			}
 		}
     }
 }
