@@ -3,17 +3,17 @@
 
 public partial class MainWindow
 {
-	private global::Gtk.Fixed fixed1;
-
-	private global::Gtk.Label serverIpLabel;
-
-	private global::Gtk.Entry serverIp;
-
-	private global::Gtk.Button startServer;
+	private global::Gtk.Table table1;
 
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 
 	private global::Gtk.TextView textLog;
+
+	private global::Gtk.Entry serverIp;
+
+	private global::Gtk.Label serverIpLabel;
+
+	private global::Gtk.Button startServer;
 
 	protected virtual void Build()
 	{
@@ -22,43 +22,13 @@ public partial class MainWindow
 		this.Name = "MainWindow";
 		this.Title = global::Mono.Unix.Catalog.GetString("SharpChat");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
-		this.Resizable = false;
 		// Container child MainWindow.Gtk.Container+ContainerChild
-		this.fixed1 = new global::Gtk.Fixed();
-		this.fixed1.Name = "fixed1";
-		this.fixed1.HasWindow = false;
-		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.serverIpLabel = new global::Gtk.Label();
-		this.serverIpLabel.Name = "serverIpLabel";
-		this.serverIpLabel.LabelProp = global::Mono.Unix.Catalog.GetString("IP-address");
-		this.fixed1.Add(this.serverIpLabel);
-		global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.serverIpLabel]));
-		w1.X = 16;
-		w1.Y = 14;
-		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.serverIp = new global::Gtk.Entry();
-		this.serverIp.CanFocus = true;
-		this.serverIp.Name = "serverIp";
-		this.serverIp.IsEditable = true;
-		this.serverIp.InvisibleChar = '•';
-		this.fixed1.Add(this.serverIp);
-		global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.serverIp]));
-		w2.X = 95;
-		w2.Y = 7;
-		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.startServer = new global::Gtk.Button();
-		this.startServer.CanFocus = true;
-		this.startServer.Name = "startServer";
-		this.startServer.UseUnderline = true;
-		this.startServer.Label = global::Mono.Unix.Catalog.GetString("Start server");
-		this.fixed1.Add(this.startServer);
-		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.startServer]));
-		w3.X = 265;
-		w3.Y = 5;
-		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.table1 = new global::Gtk.Table(((uint)(10)), ((uint)(4)), true);
+		this.table1.Name = "table1";
+		this.table1.RowSpacing = ((uint)(6));
+		this.table1.ColumnSpacing = ((uint)(6));
+		// Container child table1.Gtk.Table+TableChild
 		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow();
-		this.GtkScrolledWindow.WidthRequest = 340;
-		this.GtkScrolledWindow.HeightRequest = 300;
 		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
 		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
 		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
@@ -67,17 +37,47 @@ public partial class MainWindow
 		this.textLog.Name = "textLog";
 		this.textLog.Editable = false;
 		this.GtkScrolledWindow.Add(this.textLog);
-		this.fixed1.Add(this.GtkScrolledWindow);
-		global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.GtkScrolledWindow]));
-		w5.X = 17;
-		w5.Y = 57;
-		this.Add(this.fixed1);
+		this.table1.Add(this.GtkScrolledWindow);
+		global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1[this.GtkScrolledWindow]));
+		w2.TopAttach = ((uint)(1));
+		w2.BottomAttach = ((uint)(10));
+		w2.RightAttach = ((uint)(4));
+		// Container child table1.Gtk.Table+TableChild
+		this.serverIp = new global::Gtk.Entry();
+		this.serverIp.CanFocus = true;
+		this.serverIp.Name = "serverIp";
+		this.serverIp.IsEditable = true;
+		this.serverIp.InvisibleChar = '•';
+		this.table1.Add(this.serverIp);
+		global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1[this.serverIp]));
+		w3.LeftAttach = ((uint)(1));
+		w3.RightAttach = ((uint)(3));
+		// Container child table1.Gtk.Table+TableChild
+		this.serverIpLabel = new global::Gtk.Label();
+		this.serverIpLabel.Name = "serverIpLabel";
+		this.serverIpLabel.Xalign = 1F;
+		this.serverIpLabel.LabelProp = global::Mono.Unix.Catalog.GetString("IP-address:");
+		this.table1.Add(this.serverIpLabel);
+		global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1[this.serverIpLabel]));
+		w4.XOptions = ((global::Gtk.AttachOptions)(4));
+		w4.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child table1.Gtk.Table+TableChild
+		this.startServer = new global::Gtk.Button();
+		this.startServer.CanFocus = true;
+		this.startServer.Name = "startServer";
+		this.startServer.UseUnderline = true;
+		this.startServer.Label = global::Mono.Unix.Catalog.GetString("Start server");
+		this.table1.Add(this.startServer);
+		global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.startServer]));
+		w5.LeftAttach = ((uint)(3));
+		w5.RightAttach = ((uint)(4));
+		this.Add(this.table1);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
 		}
-		this.DefaultWidth = 376;
-		this.DefaultHeight = 445;
+		this.DefaultWidth = 382;
+		this.DefaultHeight = 344;
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 		this.startServer.Clicked += new global::System.EventHandler(this.OnStartServerClicked);
