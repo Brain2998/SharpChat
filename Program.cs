@@ -8,17 +8,10 @@ namespace SharpChat
 		private static MainWindow win;
         public static void Main(string[] args)
         {
-			try
-			{
-				Application.Init();
-				win = new MainWindow();
-				win.Show();
-				Application.Run();
-			}
-			catch (Exception err)
-            {
-				win.Log = "Main: " + err.Message + "\n";
-            }
+			Application.Init();
+			win = new MainWindow();
+			win.Show();
+			Application.Run();
         }
     }
 }

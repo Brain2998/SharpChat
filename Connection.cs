@@ -26,7 +26,8 @@ namespace SharpChat
 			clientWriter = new StreamWriter(tcpClient.GetStream());
 			try
 			{
-				clientName = clientReader.ReadLine();
+				clientName = clientReader.ReadLine().Substring(2);
+				//clientName = clientName;
 				if (clientName != "")
 				{
 					if (Server.UserTable.Contains(clientName))
@@ -50,7 +51,7 @@ namespace SharpChat
 			}
 			catch (Exception e)
 			{
-				Server.ChatForm.Log = "AcceptClient: " + e.Message+ "\n";
+				Server.ChatForm.Log = "AcceptClient: " + e.Message;
 				if (isConnected)
 				{
 					CloseConnection("0|101");
@@ -75,15 +76,36 @@ namespace SharpChat
 						Server.RemoveUser(clientName);
 						CloseConnection();
 					}
+					if (clientMessage.StartsWith("1|"))
+					{
+						Server.SendMessages(clientName, clientMessage.Substring(2));
+					}
 				}
 			}
 			catch (Exception e)
 			{
-				Server.ChatForm.Log = "RecieveMessage: " + e.Message+ "\n";
+				Server.ChatForm.Log = "RecieveMessage: " + e.Message;
 				if (isConnected)
 				{
 					CloseConnection("0|200");
 				}
+			}
+		}
+
+		public void SendMessage(string message)
+		{
+			try
+			{
+				clientWriter.WriteLine(message);
+				clientWriter.Flush();
+			}
+			catch (Exception e)
+			{
+				Server.ChatForm.Log = "SendMessage: " + e.Message;
+                if (isConnected)
+                {
+                    CloseConnection("0|200");
+                }
 			}
 		}
 
@@ -101,7 +123,7 @@ namespace SharpChat
             }
             catch (Exception e)
             {
-                Server.ChatForm.Log = "CloseConnectionReason: " + e.Message + "\n";
+                Server.ChatForm.Log = "CloseConnectionReason: " + e.Message;
             }
         }
 
@@ -117,7 +139,7 @@ namespace SharpChat
             }
             catch (Exception e)
             {
-                Server.ChatForm.Log = "CloseConnection: " + e.Message + "\n";
+                Server.ChatForm.Log = "CloseConnection: " + e.Message;
             }
         }
     }
