@@ -38,7 +38,7 @@ public partial class MainWindow : Gtk.Window
     {	      
 		Build();
 		TreeViewColumn usersColumn = new TreeViewColumn();
-        usersColumn.Title = "List of connected users";
+        usersColumn.Title = "List of connected clients";
         connectedUses.AppendColumn(usersColumn);
         connectedUses.Model = usersList;      
         CellRendererText usersCell = new CellRendererText();
@@ -91,6 +91,18 @@ public partial class MainWindow : Gtk.Window
 		catch (Exception err)
         {
            Log = "StartClicked: " + err.Message;
+        }
+    }
+
+    protected void OnKickClientClicked(object sender, EventArgs e)
+    {
+        TreeIter iter;
+        TreePath[] treePath = connectedUses.Selection.GetSelectedRows();
+        for (int i = 0; i < treePath.Length; ++i)
+        {
+            usersList.GetIter(out iter, treePath[i]);
+            server.KickUser(usersList.GetValue(iter, 0).ToString());
+            usersList.Remove(ref iter);
         }
     }
 }

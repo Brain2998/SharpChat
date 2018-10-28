@@ -10,6 +10,6 @@ Server response for client registration request:
 
 Closing the connection:
 0|200 - unknown error during communication
-0|201 - server initiate closing
+0|201 - server goes down
 0|202 - client initiate closing
-
+0|203 - client has been kicked

@@ -13,6 +13,8 @@ public partial class MainWindow
 
 	private global::Gtk.TreeView connectedUses;
 
+	private global::Gtk.Button kickClient;
+
 	private global::Gtk.Entry serverIp;
 
 	private global::Gtk.Label serverIpLabel;
@@ -28,7 +30,6 @@ public partial class MainWindow
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.table1 = new global::Gtk.Table(((uint)(10)), ((uint)(6)), true);
-		this.table1.Name = "table1";
 		this.table1.RowSpacing = ((uint)(6));
 		this.table1.ColumnSpacing = ((uint)(6));
 		// Container child table1.Gtk.Table+TableChild
@@ -58,10 +59,23 @@ public partial class MainWindow
 		this.GtkScrolledWindow1.Add(this.connectedUses);
 		this.table1.Add(this.GtkScrolledWindow1);
 		global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1[this.GtkScrolledWindow1]));
+		w4.TopAttach = ((uint)(1));
 		w4.BottomAttach = ((uint)(10));
 		w4.LeftAttach = ((uint)(4));
 		w4.RightAttach = ((uint)(6));
 		w4.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child table1.Gtk.Table+TableChild
+		this.kickClient = new global::Gtk.Button();
+		this.kickClient.CanFocus = true;
+		this.kickClient.Name = "kickClient";
+		this.kickClient.UseUnderline = true;
+		this.kickClient.Label = global::Mono.Unix.Catalog.GetString("Disconnect client");
+		this.table1.Add(this.kickClient);
+		global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.kickClient]));
+		w5.LeftAttach = ((uint)(4));
+		w5.RightAttach = ((uint)(6));
+		w5.XOptions = ((global::Gtk.AttachOptions)(4));
+		w5.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child table1.Gtk.Table+TableChild
 		this.serverIp = new global::Gtk.Entry();
 		this.serverIp.CanFocus = true;
@@ -69,18 +83,18 @@ public partial class MainWindow
 		this.serverIp.IsEditable = true;
 		this.serverIp.InvisibleChar = '•';
 		this.table1.Add(this.serverIp);
-		global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.serverIp]));
-		w5.LeftAttach = ((uint)(1));
-		w5.RightAttach = ((uint)(3));
+		global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.serverIp]));
+		w6.LeftAttach = ((uint)(1));
+		w6.RightAttach = ((uint)(3));
 		// Container child table1.Gtk.Table+TableChild
 		this.serverIpLabel = new global::Gtk.Label();
 		this.serverIpLabel.Name = "serverIpLabel";
 		this.serverIpLabel.Xalign = 1F;
 		this.serverIpLabel.LabelProp = global::Mono.Unix.Catalog.GetString("IP-address:");
 		this.table1.Add(this.serverIpLabel);
-		global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.serverIpLabel]));
-		w6.XOptions = ((global::Gtk.AttachOptions)(4));
-		w6.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1[this.serverIpLabel]));
+		w7.XOptions = ((global::Gtk.AttachOptions)(4));
+		w7.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child table1.Gtk.Table+TableChild
 		this.startServer = new global::Gtk.Button();
 		this.startServer.CanFocus = true;
@@ -88,18 +102,19 @@ public partial class MainWindow
 		this.startServer.UseUnderline = true;
 		this.startServer.Label = global::Mono.Unix.Catalog.GetString("Start server");
 		this.table1.Add(this.startServer);
-		global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1[this.startServer]));
-		w7.LeftAttach = ((uint)(3));
-		w7.RightAttach = ((uint)(4));
+		global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1[this.startServer]));
+		w8.LeftAttach = ((uint)(3));
+		w8.RightAttach = ((uint)(4));
 		this.Add(this.table1);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
 		}
-		this.DefaultWidth = 673;
+		this.DefaultWidth = 576;
 		this.DefaultHeight = 379;
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 		this.startServer.Clicked += new global::System.EventHandler(this.OnStartServerClicked);
+		this.kickClient.Clicked += new global::System.EventHandler(this.OnKickClientClicked);
 	}
 }

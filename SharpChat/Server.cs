@@ -12,7 +12,7 @@ namespace SharpChat
 		private IPAddress ipAddress;
 	    private TcpClient tcpClient;
 	    private TcpListener tcpListener;
-		private static Hashtable Users = new Hashtable();
+        private static Hashtable Users = new Hashtable();
 		public static MainWindow ChatForm;
 		private Thread thrListener;
 		public bool isRunning = false;
@@ -118,5 +118,12 @@ namespace SharpChat
 				ChatForm.usersList.AppendValues(user);
 			}
 		}
+
+        public void KickUser(string Username)
+        {
+            Connection client = (Connection)Users[Username];
+            client.CloseConnection("0|203");
+            RemoveUser(Username);
+        }
     }
 }
