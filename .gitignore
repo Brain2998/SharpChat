@@ -1,19 +1,41 @@
-# OSX specific
-.DS_Store
-*.lock
-*.swp
-*.lock
+# Autosave files
+*~
 
-# Build folders
-[Bb]in/
+# build
 [Oo]bj/
+[Bb]in/
+packages/
+TestResults/
 
-# User specific
+# globs
+Makefile.in
+*.DS_Store
+*.sln.cache
+*.suo
+*.cache
+*.pidb
 *.userprefs
 *.usertasks
-
-# Mono project files
-*~
-*.pidb
-*.resources
+config.log
+config.make
+config.status
+aclocal.m4
+install-sh
+autom4te.cache/
+*.user
+*.tar.gz
+tarballs/
 test-results/
+Thumbs.db
+.vs/
+
+# Mac bundle stuff
+*.dmg
+*.app
+
+# resharper
+*_Resharper.*
+*.Resharper
+
+# dotCover
+*.dotCover
