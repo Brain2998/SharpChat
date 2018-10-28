@@ -5,8 +5,9 @@
   </configuration>
   <import>
     <widget-library name="../bin/Debug/SharpChat.exe" internal="true" />
+    <widget-library name="../../../../../../../../usr/lib/mono/gac/glade-sharp/2.12.0.0__35e10195dab3c99f/glade-sharp.dll" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="382 344">
+  <widget class="Gtk.Window" id="MainWindow" design-size="673 379">
     <property name="MemberName" />
     <property name="Title" translatable="yes">SharpChat</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -15,7 +16,7 @@
       <widget class="Gtk.Table" id="table1">
         <property name="MemberName" />
         <property name="NRows">10</property>
-        <property name="NColumns">4</property>
+        <property name="NColumns">6</property>
         <property name="Homogeneous">True</property>
         <property name="RowSpacing">6</property>
         <property name="ColumnSpacing">6</property>
@@ -42,6 +43,33 @@
             <property name="XFill">True</property>
             <property name="XShrink">False</property>
             <property name="YExpand">True</property>
+            <property name="YFill">True</property>
+            <property name="YShrink">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow1">
+            <property name="MemberName" />
+            <property name="HscrollbarPolicy">Never</property>
+            <property name="ShadowType">In</property>
+            <child>
+              <widget class="Gtk.TreeView" id="connectedUses">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="ShowScrollbars">True</property>
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="BottomAttach">10</property>
+            <property name="LeftAttach">4</property>
+            <property name="RightAttach">6</property>
+            <property name="AutoSize">True</property>
+            <property name="YOptions">Fill</property>
+            <property name="XExpand">True</property>
+            <property name="XFill">True</property>
+            <property name="XShrink">False</property>
+            <property name="YExpand">False</property>
             <property name="YFill">True</property>
             <property name="YShrink">False</property>
           </packing>

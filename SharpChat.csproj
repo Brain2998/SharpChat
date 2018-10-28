@@ -57,6 +57,21 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Mono.Posix" />
+    <Reference Include="Mono.Posix">
+      <HintPath>..\..\..\..\..\..\..\usr\lib\mono\4.7-api\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>..\..\..\..\..\..\..\usr\lib\mono\4.7-api\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>..\..\..\..\..\..\..\usr\lib\mono\4.7-api\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\..\usr\lib\mono\4.7-api\System.dll</HintPath>
+    </Reference>
+    <Reference Include="glade-sharp">
+      <HintPath>..\..\..\..\..\..\..\usr\lib\mono\gac\glade-sharp\2.12.0.0__35e10195dab3c99f\glade-sharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">

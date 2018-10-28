@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections;
 using System.Threading;
+using Gtk;
 
 namespace SharpChat
 {
@@ -104,12 +105,18 @@ namespace SharpChat
 		{
 			Users.Add(Username, User);
 			ChatForm.Log = Username + " join";
+			ChatForm.usersList.AppendValues(Username);
 		}
 
 		public static void RemoveUser(string Username)
 		{
 			Users.Remove(Username);
 			ChatForm.Log = Username + " left";
+			ChatForm.usersList.Clear();
+			foreach (string user in Users.Keys)
+			{
+				ChatForm.usersList.AppendValues(user);
+			}
 		}
     }
 }

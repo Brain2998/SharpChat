@@ -36,8 +36,7 @@ namespace SharpChat
 					}
 					else
 					{
-						clientWriter.WriteLine("0|100");
-						clientWriter.Flush();
+						SendMessage("0|100");
 						Server.AddUser(this, clientName);
 						isConnected = true;
 						clientThread = new Thread(RecieveMessages);
@@ -113,8 +112,7 @@ namespace SharpChat
         {
             try
             {
-                clientWriter.WriteLine(reason);
-                clientWriter.Flush();
+				SendMessage(reason);
                 tcpClient.Close();
                 isConnected = false;
                 clientThread.Join();
