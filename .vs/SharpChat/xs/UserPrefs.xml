@@ -1,7 +1,11 @@
-﻿<Properties StartupConfiguration="{AF35FBBC-5A5A-4410-9C4C-8535ED424367}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="SharpChat/MainWindow.cs">
+﻿<Properties StartupConfiguration="{D47A10D8-BAE4-4F40-B450-E8CFD937C540}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SharpChat Status">
     <Files>
-      <File FileName="SharpChat/MainWindow.cs" Line="1" Column="1" />
+      <File FileName="SharpChat/ChatForm.cs" Line="38" Column="6" />
+      <File FileName="SharpChat/Server.cs" Line="119" Column="5" />
+      <File FileName="SharpChat/Connection.cs" Line="100" Column="5" />
+      <File FileName="SharpChat/SharpChat.csproj" Line="1" Column="1" />
+      <File FileName="SharpChat Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
@@ -10,5 +14,5 @@
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.SharpChat PreferredExecutionTarget="MonoDevelop.Default" FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.SharpChat PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
