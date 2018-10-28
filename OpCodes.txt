@@ -1,0 +1,15 @@
+Message types:
+0| - service message
+1| - chat message
+
+Server response for client registration request:
+0|100 - connection successful
+0|101 - unknown error during registration
+0|102 - invalid nickname
+0|103 - nickname already in use
+
+Closing the connection:
+0|200 - unknown error during communication
+0|201 - server initiate closing
+0|202 - client initiate closing
+
