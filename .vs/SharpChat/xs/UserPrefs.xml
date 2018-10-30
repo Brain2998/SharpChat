@@ -1,10 +1,9 @@
 ﻿<Properties StartupConfiguration="{D47A10D8-BAE4-4F40-B450-E8CFD937C540}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="SharpChat Status">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SharpChat/ChatForm.cs">
     <Files>
       <File FileName="SharpChat/ChatForm.cs" Line="103" Column="54" />
       <File FileName="SharpChat/Server.cs" Line="127" Column="10" />
       <File FileName="SharpChat/Connection.cs" Line="139" Column="14" />
-      <File FileName="SharpChat Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />

@@ -70,15 +70,17 @@ namespace SharpChat
 						continue;
 					}
 					clientMessage = clientReader.ReadLine();
-					if (clientMessage.StartsWith("0|"))
-					{
-						Server.RemoveUser(clientName);
-						CloseConnection();
-					}
-					if (clientMessage.StartsWith("1|"))
-					{
-						Server.SendMessages(clientName, clientMessage.Substring(2));
-					}
+                    switch (clientMessage.Substring(0,2))
+                    {
+                        case "0|":
+                            Server.RemoveUser(clientName);
+                            CloseConnection();
+                            break;
+                        case "1|":
+                        case "2|":
+                            Server.SendMessages(clientName, clientMessage);
+                            break;
+                    }
 				}
 			}
 			catch (Exception e)

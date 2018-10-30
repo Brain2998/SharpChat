@@ -95,10 +95,20 @@ namespace SharpChat
 
 		public static void SendMessages(string From, string Message)
 		{
-			foreach (Connection client in Users.Values)
-			{
-				client.SendMessage("1|"+From + ": " + Message);
-			}
+            if (Message.StartsWith("1|"))
+            {
+                foreach (Connection client in Users.Values)
+                {
+                    client.SendMessage("1|" + From + ": " + Message.Substring(2));
+                }
+            }
+            if (Message.StartsWith("2|"))
+            {
+                foreach (Connection client in Users.Values)
+                {
+                    client.SendMessage("1|" + From + ": "+Message);
+                }
+            }
 		}
 
 		public static void AddUser(Connection User, string Username)
