@@ -2,6 +2,7 @@
 using System.Net;
 using Gtk;
 using SharpChat;
+using System.Threading.Tasks;
 
 public partial class MainWindow : Gtk.Window
 {
@@ -10,19 +11,25 @@ public partial class MainWindow : Gtk.Window
 	private IPAddress address;
 	public ListStore usersList = new ListStore(typeof(string));
 
-	public string Log
-	{
-		get
-		{
-			return textLog.Buffer.Text;
-		}
-		set
-		{
-			textLog.Buffer.Text += value+"\n";
-		}
-	}
+    public async void LogMessage(string message)
+    {
+        Label logMessage = new Label();
+        logMessage.Xalign = 0;
+        logMessage.Yalign = 0;
+        logMessage.LabelProp = message;
+        logBox.PackStart(logMessage, false, false, 0);
+        logBox.ShowAll();
+        await PutTaskDelay();
+        Adjustment logAdjustment = logWindow.Vadjustment;
+        logWindow.Vadjustment.Value = logAdjustment.Upper - logAdjustment.PageSize;
+    }
 
-	public string ipAddress
+    async Task PutTaskDelay()
+    {
+        await Task.Delay(100);
+    }
+
+    public string ipAddress
 	{
 		get
 		{
@@ -44,6 +51,13 @@ public partial class MainWindow : Gtk.Window
         CellRendererText usersCell = new CellRendererText();
         usersColumn.PackStart(usersCell, true);      
         usersColumn.AddAttribute(usersCell, "text", 0);
+        GLib.ExceptionManager.UnhandledException += logException;
+    }
+
+    void logException(GLib.UnhandledExceptionArgs args)
+    {
+        args.ExitApplication = false;
+        LogMessage("GlobalException: " + args.ExceptionObject.ToString());
     }
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
@@ -52,7 +66,7 @@ public partial class MainWindow : Gtk.Window
 		{
 			server.StopListening();
 		}
-        Application.Quit();
+        Environment.Exit(0);
         a.RetVal = true;
     }
 
@@ -70,7 +84,7 @@ public partial class MainWindow : Gtk.Window
 			if (Running)
 			{
 				server.StopListening();
-				Log = "Server is terminated.";
+                LogMessage("Server is terminated.");
 				StartFormChange(false);
 			}
 			else
@@ -79,18 +93,18 @@ public partial class MainWindow : Gtk.Window
 				{
 					server = new Server(address, this);
 					server.StartListening();
-					Log = "Waiting for connections...";
+                    LogMessage("Waiting for connections...");
 					StartFormChange(true);
 				}
 				else
 				{
-					Log = "Not valid IP address.";
+                    LogMessage("Not valid IP address.");
 				}
 			}
 		}
 		catch (Exception err)
         {
-           Log = "StartClicked: " + err.Message;
+            LogMessage("StartClicked: " + err.Message);
         }
     }
 

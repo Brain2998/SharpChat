@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.IO;
 
+
 namespace SharpChat
 {
     public class Connection
@@ -27,7 +28,6 @@ namespace SharpChat
 			try
 			{
 				clientName = clientReader.ReadLine().Substring(2);
-				//clientName = clientName;
 				if (clientName != "")
 				{
 					if (Server.UserTable.Contains(clientName))
@@ -50,7 +50,7 @@ namespace SharpChat
 			}
 			catch (Exception e)
 			{
-				Server.ChatForm.Log = "AcceptClient: " + e.Message;
+                Server.ChatForm.LogMessage("AcceptClient: " + e.Message);
 				if (isConnected)
 				{
 					CloseConnection("0|101");
@@ -85,7 +85,7 @@ namespace SharpChat
 			}
 			catch (Exception e)
 			{
-				Server.ChatForm.Log = "RecieveMessage: " + e.Message;
+                Server.ChatForm.LogMessage("RecieveMessage: " + e.Message);
 				if (isConnected)
 				{
 					CloseConnection("0|200");
@@ -102,7 +102,7 @@ namespace SharpChat
 			}
 			catch (Exception e)
 			{
-				Server.ChatForm.Log = "SendMessage: " + e.Message;
+                Server.ChatForm.LogMessage("SendMessage: " + e.Message);
                 if (isConnected)
                 {
                     CloseConnection("0|200");
@@ -123,7 +123,7 @@ namespace SharpChat
             }
             catch (Exception e)
             {
-                Server.ChatForm.Log = "CloseConnectionReason: " + e.Message;
+                Server.ChatForm.LogMessage("CloseConnectionReason: " + e.Message);
             }
         }
 
@@ -139,7 +139,7 @@ namespace SharpChat
             }
             catch (Exception e)
             {
-                Server.ChatForm.Log = "CloseConnection: " + e.Message;
+                Server.ChatForm.LogMessage("CloseConnection: " + e.Message);
             }
         }
     }

@@ -5,15 +5,15 @@ public partial class MainWindow
 {
 	private global::Gtk.Table table1;
 
-	private global::Gtk.ScrolledWindow GtkScrolledWindow;
-
-	private global::Gtk.TextView textLog;
-
 	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
 
 	private global::Gtk.TreeView connectedUses;
 
 	private global::Gtk.Button kickClient;
+
+	private global::Gtk.ScrolledWindow logWindow;
+
+	private global::Gtk.VBox logBox;
 
 	private global::Gtk.Entry serverIp;
 
@@ -30,23 +30,9 @@ public partial class MainWindow
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.table1 = new global::Gtk.Table(((uint)(10)), ((uint)(6)), true);
+		this.table1.Name = "table1";
 		this.table1.RowSpacing = ((uint)(6));
 		this.table1.ColumnSpacing = ((uint)(6));
-		// Container child table1.Gtk.Table+TableChild
-		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow();
-		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
-		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
-		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-		this.textLog = new global::Gtk.TextView();
-		this.textLog.CanFocus = true;
-		this.textLog.Name = "textLog";
-		this.textLog.Editable = false;
-		this.GtkScrolledWindow.Add(this.textLog);
-		this.table1.Add(this.GtkScrolledWindow);
-		global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1[this.GtkScrolledWindow]));
-		w2.TopAttach = ((uint)(1));
-		w2.BottomAttach = ((uint)(10));
-		w2.RightAttach = ((uint)(4));
 		// Container child table1.Gtk.Table+TableChild
 		this.GtkScrolledWindow1 = new global::Gtk.ScrolledWindow();
 		this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
@@ -58,12 +44,12 @@ public partial class MainWindow
 		this.connectedUses.Name = "connectedUses";
 		this.GtkScrolledWindow1.Add(this.connectedUses);
 		this.table1.Add(this.GtkScrolledWindow1);
-		global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1[this.GtkScrolledWindow1]));
-		w4.TopAttach = ((uint)(1));
-		w4.BottomAttach = ((uint)(10));
-		w4.LeftAttach = ((uint)(4));
-		w4.RightAttach = ((uint)(6));
-		w4.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1[this.GtkScrolledWindow1]));
+		w2.TopAttach = ((uint)(1));
+		w2.BottomAttach = ((uint)(10));
+		w2.LeftAttach = ((uint)(4));
+		w2.RightAttach = ((uint)(6));
+		w2.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child table1.Gtk.Table+TableChild
 		this.kickClient = new global::Gtk.Button();
 		this.kickClient.CanFocus = true;
@@ -71,11 +57,30 @@ public partial class MainWindow
 		this.kickClient.UseUnderline = true;
 		this.kickClient.Label = global::Mono.Unix.Catalog.GetString("Disconnect client");
 		this.table1.Add(this.kickClient);
-		global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.kickClient]));
-		w5.LeftAttach = ((uint)(4));
-		w5.RightAttach = ((uint)(6));
-		w5.XOptions = ((global::Gtk.AttachOptions)(4));
-		w5.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1[this.kickClient]));
+		w3.LeftAttach = ((uint)(4));
+		w3.RightAttach = ((uint)(6));
+		w3.XOptions = ((global::Gtk.AttachOptions)(4));
+		w3.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child table1.Gtk.Table+TableChild
+		this.logWindow = new global::Gtk.ScrolledWindow();
+		this.logWindow.CanFocus = true;
+		this.logWindow.Name = "logWindow";
+		this.logWindow.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child logWindow.Gtk.Container+ContainerChild
+		global::Gtk.Viewport w4 = new global::Gtk.Viewport();
+		w4.ShadowType = ((global::Gtk.ShadowType)(0));
+		// Container child GtkViewport.Gtk.Container+ContainerChild
+		this.logBox = new global::Gtk.VBox();
+		this.logBox.Name = "logBox";
+		w4.Add(this.logBox);
+		this.logWindow.Add(w4);
+		this.table1.Add(this.logWindow);
+		global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1[this.logWindow]));
+		w7.TopAttach = ((uint)(1));
+		w7.BottomAttach = ((uint)(10));
+		w7.RightAttach = ((uint)(4));
+		w7.XOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child table1.Gtk.Table+TableChild
 		this.serverIp = new global::Gtk.Entry();
 		this.serverIp.CanFocus = true;
@@ -83,18 +88,18 @@ public partial class MainWindow
 		this.serverIp.IsEditable = true;
 		this.serverIp.InvisibleChar = '•';
 		this.table1.Add(this.serverIp);
-		global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.serverIp]));
-		w6.LeftAttach = ((uint)(1));
-		w6.RightAttach = ((uint)(3));
+		global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1[this.serverIp]));
+		w8.LeftAttach = ((uint)(1));
+		w8.RightAttach = ((uint)(3));
 		// Container child table1.Gtk.Table+TableChild
 		this.serverIpLabel = new global::Gtk.Label();
 		this.serverIpLabel.Name = "serverIpLabel";
 		this.serverIpLabel.Xalign = 1F;
 		this.serverIpLabel.LabelProp = global::Mono.Unix.Catalog.GetString("IP-address:");
 		this.table1.Add(this.serverIpLabel);
-		global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1[this.serverIpLabel]));
-		w7.XOptions = ((global::Gtk.AttachOptions)(4));
-		w7.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1[this.serverIpLabel]));
+		w9.XOptions = ((global::Gtk.AttachOptions)(4));
+		w9.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child table1.Gtk.Table+TableChild
 		this.startServer = new global::Gtk.Button();
 		this.startServer.CanFocus = true;
@@ -102,16 +107,16 @@ public partial class MainWindow
 		this.startServer.UseUnderline = true;
 		this.startServer.Label = global::Mono.Unix.Catalog.GetString("Start server");
 		this.table1.Add(this.startServer);
-		global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1[this.startServer]));
-		w8.LeftAttach = ((uint)(3));
-		w8.RightAttach = ((uint)(4));
+		global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table1[this.startServer]));
+		w10.LeftAttach = ((uint)(3));
+		w10.RightAttach = ((uint)(4));
 		this.Add(this.table1);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
 		}
 		this.DefaultWidth = 576;
-		this.DefaultHeight = 379;
+		this.DefaultHeight = 344;
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 		this.startServer.Clicked += new global::System.EventHandler(this.OnStartServerClicked);

@@ -47,7 +47,7 @@ namespace SharpChat
 			}
 			catch (Exception e)
             {
-				ChatForm.Log = "StartListening: " + e.Message;
+                ChatForm.LogMessage("StartListening: " + e.Message);
             }
         }
 
@@ -69,7 +69,7 @@ namespace SharpChat
 			}
 			catch (Exception e)
 			{
-				ChatForm.Log= "KeepListening: " + e.Message+" "+e.TargetSite;
+                ChatForm.LogMessage("KeepListening: " + e.Message+" "+e.TargetSite);
 			}
 		}
 
@@ -89,7 +89,7 @@ namespace SharpChat
 			}
 			catch (Exception e)
 			{
-				ChatForm.Log = "StopListening: " + e.Message;
+                ChatForm.LogMessage("StopListening: " + e.Message);
 			}
 		}
 
@@ -114,14 +114,14 @@ namespace SharpChat
 		public static void AddUser(Connection User, string Username)
 		{
 			Users.Add(Username, User);
-			ChatForm.Log = Username + " join";
+            ChatForm.LogMessage(Username + " join");
 			ChatForm.usersList.AppendValues(Username);
 		}
 
 		public static void RemoveUser(string Username)
 		{
 			Users.Remove(Username);
-			ChatForm.Log = Username + " left";
+            ChatForm.LogMessage(Username + " left");
 			ChatForm.usersList.Clear();
 			foreach (string user in Users.Keys)
 			{
