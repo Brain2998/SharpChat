@@ -86,6 +86,7 @@ namespace SharpChat
 				thrListener.Join();
 
 				Users.Clear();
+                ChatForm.usersList.Clear();
 			}
 			catch (Exception e)
 			{
