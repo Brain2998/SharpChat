@@ -1,3 +1,3 @@
 # SharpChat
 
-Server for chat application
+TCP server for chat application with Mono
